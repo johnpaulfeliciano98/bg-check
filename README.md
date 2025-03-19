@@ -100,12 +100,12 @@ icu-insulin-calculator/
 ## Screenshots
 
 ### 1. Input Form
-![Input Form](./images/bg-check-input.png)
+![Input Form](bg-check-input.png)
 
 **Description:** The user inputs current/previous BG and current infusion rate, then clicks “Submit.”
 
 ### 2. Output/Recommendation
-![Output Recommendation](./images/bg-check-result.png)
+![Output Recommendation](bg-check-result.png)
 
 **Description:** The app returns a clear, text-based recommendation based on the logic from the original table.
 
