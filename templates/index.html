@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BG Check App</title>
+    <link rel="stylesheet" href="static/styles.css">
+</head>
+<body>
+    <h1>Insulin Infusion Calculator</h1>
+    <form method="post">
+        <label for="current_bg">Current BG (mg/dL):</label>
+        <input type="number" inputmode="decimal" step="any" min="0" id="current_bg" name="current_bg" required><br><br>
+
+        <label for="previous_bg">Previous BG (mg/dL):</label>
+        <input type="number" inputmode="decimal" step="any" min="0" id="previous_bg" name="previous_bg" required><br><br>
+
+        <label for="current_infusion_rate">Current Infusion Rate (units/hour):</label>
+        <input type="number" inputmode="decimal" step="any" min="0" id="current_infusion_rate" name="current_infusion_rate" required><br><br>
+
+        <input type="submit" value="Calculate">
+        <button type="button" id="reset-button">Reset</button>
+    </form>
+
+    {% if result %}
+        <h2>Result:</h2>
+        <p class="result">{{ result|safe }}</p>
+    {% endif %}
+
+    <script>
+        // JavaScript to handle reset button click
+        document.getElementById('reset-button').addEventListener('click', function() {
+            // Reload the page to reset fields and clear results
+            window.location.href = window.location.href.split('?')[0];
+        });
+    </script>
+
+<table border="1" cellpadding="5">
+    <thead>
+        <tr>
+            <th>Current BG (mg/dL)</th>
+            <th>Changes from previous BG (mg/dL)</th>
+            <th>Insulin Infusion Adjustment</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td rowspan="1">70-79</td>
+            <td></td>
+            <td>Hold infusion for 1 hour<br>Recheck BG in 1 hour and if BG is greater than 120 mg/dL restart drip and decrease infusion by (B)</td>
+        </tr>
+        <tr>
+            <td rowspan="4">80-139</td>
+            <td>Any BG rise</td>
+            <td>No change in infusion rate</td>
+        </tr>
+        <tr>
+            <td>Drop 0-20</td>
+            <td>Decrease infusion by (A)</td>
+        </tr>
+        <tr>
+            <td>Drop 21-40</td>
+            <td>Decrease infusion by (B)</td>
+        </tr>
+        <tr>
+            <td>Drop greater than 40</td>
+            <td>Hold infusion for 30 minutes<br>Recheck BG in 30 minutes and if BG greater than 120 mg/dL, restart drip and decrease infusion by (B)</td>
+        </tr>
+        <tr>
+            <td rowspan="6">140-180 (target)</td>
+            <td>Rise greater than 20</td>
+            <td>Increase infusion by (A)</td>
+        </tr>
+        <tr>
+            <td>Rise 1-20</td>
+            <td>No change in infusion rate</td>
+        </tr>
+        <tr>
+            <td>Unchanged</td>
+            <td>No change in infusion rate</td>
+        </tr>
+        <tr>
+            <td>Drop 0-20</td>
+            <td>No change in infusion rate</td>
+        </tr>
+        <tr>
+            <td>Drop 21-40</td>
+            <td>Decrease infusion by (A)</td>
+        </tr>
+        <tr>
+            <td>Drop greater than 40</td>
+            <td>Hold infusion for 30 minutes<br>Recheck BG in 30 minutes and if BG greater than 120 mg/dL, restart drip and decrease infusion by (B)</td>
+        </tr>
+        <tr>
+            <td rowspan="6">181-220</td>
+            <td>Rise 1-40</td>
+            <td>Increase infusion by (A)</td>
+        </tr>
+        <tr>
+            <td>Rise greater than 40</td>
+            <td>Increase infusion by (B)</td>
+        </tr>
+        <tr>
+            <td>Drop 0-20</td>
+            <td>Increase infusion by (A)</td>
+        </tr>
+        <tr>
+            <td>Drop 21-40</td>
+            <td>No change in infusion rate</td>
+        </tr>
+        <tr>
+            <td>Drop greater than 40</td>
+            <td>Decrease infusion by (A)</td>
+        </tr>
+        <tr>
+            <td>Drop greater than 80</td>
+            <td>Hold infusion for 30 minutes<br>Recheck BG in 30 minutes and if BG greater than 120 mg/dL, restart drip and decrease infusion by (B)</td>
+        </tr>
+        <tr>
+            <td rowspan="5">221-250</td>
+            <td>Any BG rise</td>
+            <td>Bolus by (A)<br>Increase infusion by (B)</td>
+        </tr>
+        <tr>
+            <td>Drop 0-20</td>
+            <td>Increase infusion by (A)</td>
+        </tr>
+        <tr>
+            <td>Drop 21-80</td>
+            <td>No change in infusion rate</td>
+        </tr>
+        <tr>
+            <td>Drop 81-120</td>
+            <td>Decrease infusion by (B)</td>
+        </tr>
+        <tr>
+            <td>Drop greater than 120</td>
+            <td>Hold infusion for 30 minutes<br>Recheck BG in 30 minutes and if BG greater than 120 mg/dL, restart drip and decrease infusion by (B)</td>
+        </tr>
+        <tr>
+            <td rowspan="5">Over 250</td>
+            <td>Any BG rise</td>
+            <td>Bolus by (B)<br>Increase infusion by (B)</td>
+        </tr>
+        <tr>
+            <td>Drop 0-20</td>
+            <td>Increase infusion by (B)</td>
+        </tr>
+        <tr>
+            <td>Drop 21-80</td>
+            <td>No change in infusion rate</td>
+        </tr>
+        <tr>
+            <td>Drop 81-120</td>
+            <td>Decrease infusion by (A)</td>
+        </tr>
+        <tr>
+            <td>Drop greater than 120</td>
+            <td>Hold infusion for 30 minutes<br>Recheck BG in 30 minutes and if BG greater than 120 mg/dL, restart drip and decrease infusion by (B)</td>
+        </tr>
+    </tbody>
+</table>
+
+
+
+<table border="1" cellpadding="5">
+  <thead>
+    <tr>
+      <th>Current Infusion Rate unit (s)</th>
+      <th>TABLE A unit (s)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>0.1-2</td>
+      <td>0.3</td>
+    </tr>
+    <tr>
+      <td>2.1-4</td>
+      <td>0.5</td>
+    </tr>
+    <tr>
+      <td>4.1-7</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>7.1-10</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>Greater than 10</td>
+      <td>3</td>
+    </tr>
+  </tbody>
+</table>
+
+<table border="1" cellpadding="5">
+  <thead>
+    <tr>
+      <th>Current Infusion Rate unit (s)</th>
+      <th>TABLE B unit (s)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>0.1-2</td>
+      <td>0.5</td>
+    </tr>
+    <tr>
+      <td>2.1-4</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>4.1-7</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>7.1-10</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <td>Greater than 10</td>
+      <td>4</td>
+    </tr>
+  </tbody>
+</table>
+
+
+</body>
+</html>

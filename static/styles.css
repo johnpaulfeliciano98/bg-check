@@ -1,0 +1,125 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+h1 {
+    text-align: center;
+    color: #007bff;
+    margin-top: 80px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px;
+}
+
+label {
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input[type="text"] {
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    width: 300px;
+}
+
+input[type="submit"] {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+/* Styling for reset button */
+button[type="button"] {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 4px;
+    background-color: #6c757d; /* Gray background for reset button */
+    color: white;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+button[type="button"]:hover {
+    background-color: #5a6268; /* Darker gray for hover */
+}
+
+h2 {
+    text-align: center;
+    color: #333;
+}
+
+p {
+    text-align: center;
+    font-size: 18px;
+    color: #555;
+}
+
+/* Add this CSS to style the result */
+.result {
+    white-space: pre-wrap; /* Preserves whitespace and line breaks */
+    font-family: Arial, sans-serif; /* Consistent font style */
+    font-size: 16px; /* Adjusts the font size */
+    margin: 20px; /* Space around the result section */
+    padding: 15px; /* Padding inside the result box */
+    border: 1px solid #ddd; /* Light gray border for the result box */
+    border-radius: 4px; /* Rounded corners for the result box */
+    background-color: #fff; /* White background for clarity */
+    color: #333; /* Dark gray text color for readability */
+    max-width: 80%; /* Limits the width of the result box */
+    margin-left: auto; /* Centers the result box */
+    margin-right: auto; /* Centers the result box */
+}
+
+/* Table Styles */
+table {
+    width: 80%;
+    margin: 20px auto;
+    border-collapse: collapse;
+    background-color: #ffffff; /* White background for table */
+    color: #333; /* Dark gray text for table content */
+    border-radius: 8px; /* Rounded corners for the table */
+}
+
+th, td {
+    padding: 12px 15px;
+    border: 1px solid #007bff; /* Blue border for table cells */
+    text-align: center;
+}
+
+th {
+    background-color: #007bff; /* Blue background for header */
+    color: #fff; /* White text for header */
+}
+
+td {
+    background-color: #f8f9fa; /* Light gray background for table cells */
+    color: #333; /* Dark gray text for table cells */
+}
+
+tr:nth-child(even) {
+    background-color: #e9ecef; /* Slightly darker gray for even rows */
+}
+
+tr:hover {
+    background-color: #d6e4ff; /* Light blue background on row hover */
+}
